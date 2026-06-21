@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Página Web Interactiva</title>
+    <style>
+        /* Estilos generales para que la página se vea moderna */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            background-color: #2c3e50;
+            color: white;
+            width: 100%;
+            text-align: center;
+            padding: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        main {
+            max-width: 1000px;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        /* Contenedor de la galería de imágenes */
+        .galeria {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .tarjeta {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            width: 280px;
+        }
+
+        /* Efecto al pasar el mouse por encima de la tarjeta */
+        .tarjeta:hover {
+            transform: translateY(-5px);
+        }
+
+        .tarjeta img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .tarjeta-info {
+            padding: 15px;
+        }
+
+        /* Estilos de los botones */
+        .btn {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-secundario {
+            background-color: #e67e22;
+        }
+
+        .btn-secundario:hover {
+            background-color: #d35400;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Explora Roblox Universe</h1>
+        <p>Una página simple, pero con el fin para usuarios de roblox universe</p>
+    </header>
+
+    <main>
+        <h2>Links</h2>
+        <p>Haz clic en los botones para tener tanto el servidor de discord o el canal de yt.</p>
+
+        <div class="galeria">
+            <div class="tarjeta">
+                <img src="https://assets.turbologo.com/blog/tr/2019/10/19134551/youtube-logo-illustration-958x575.jpg" alt="Logo YT">
+                <div class="tarjeta-info">
+                    <h3>Canal de yt</h3>
+                    <p>Descubre los videos que subamos mediante el canal.</p>
+                    <button class="btn" onclick="alert('aqui esta el canal= https://www.youtube.com/@RobloxUniverseLatam')">Ver más</button>
+                </div>
+            </div>
+
+            <div class="tarjeta">
+                <img src="https://tse1.mm.bing.net/th/id/OIP.JCVVh1hAV_CThLuKYyd6_QHaDt?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Metro CDMX">
+                <div class="tarjeta-info">
+                    <h3>Discord :3</h3>
+                    <p>Explora los canales del servidor y convive con otros.</p>
+                    <button class="btn btn-secundario" onclick="alert('Bienvenido al servidor, esperemos y disfrutes= https://discord.gg/yAvs7tPP9a')">Explorar</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
+<div class="tarjeta">
+    <img src="https://tr.rbxcdn.com/180DAY-f08fe6ed2c53b9149dffa807e431abec/768/432/Image/Webp/noFilter" alt="Tu Juego de Roblox">
+    <div class="tarjeta-info">
+        <h3>Metro CDMX Linea 2</h3>
+        <p>Un juego de rol sobre el STCM (Sistema de transporte colectivo metro) Hecho por BlockInBlock :D.</p>
+        
+        <a href="https://www.roblox.com/es/games/18284622026/Metro-CDMX-L-nea-2" target="_blank" class="btn" style="background-color: #00b06f; display: block; text-decoration: none; margin-top: 10px;">LLEVAME ALLA!</a>
+    </div>
+</div>
+<footer style="background-color: #2c3e50; color: white; width: 100%; text-align: center; padding: 20px 0; margin-top: 60px;">
+    <p>© 2026 Roblox Universe. Creado por Leo_Blox</p>
+</footer>
+<h2 style="margin-top: 60px; color: #2c3e50;">Equipo de Roblox Universe</h2>
+<p>Los encargados de mantener a Roblox Universe sano.</p>
+
+<div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 20px;">
+    
+    <div style="background: white; border-radius: 50px; padding: 10px 25px; display: flex; align-items: center; gap: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #eee;" class="tarjeta-staff">
+        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=150&h=150" alt="Avatar" style="width: 40px; height: 40px; border-radius: 50%;">
+        <div style="text-align: left;">
+            <h4 style="margin: 0; font-size: 16px;">Leo_Blox</h4>
+            <span style="font-size: 12px; color: #e67e22; font-weight: bold;">👑 Creador</span>
+        </div>
+    </div>
+
+    <div style="background: white; border-radius: 50px; padding: 10px 25px; display: flex; align-items: center; gap: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #eee;" class="tarjeta-staff">
+        <img src="https://images.rbxcdn.com/95e691aa389fe558d116345ec4668ba4.png" alt="Avatar" style="width: 40px; height: 40px; border-radius: 50%;">
+        <div style="text-align: left;">
+            <h4 style="margin: 0; font-size: 16px;">Sin mods</h4>
+            <span style="font-size: 12px; color: #2ecc71; font-weight: bold;">🛠️ Admin</span>
+        </div>
+    </div>
+
+</div>
+
+<style>
+    body.dark-mode .tarjeta-staff {
+        background-color: #262626 !important;
+        border-color: #333 !important;
+    }
+</style>
