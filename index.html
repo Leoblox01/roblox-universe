@@ -736,3 +736,30 @@ function toggleFAQ(button) {
         alert(retoFinal);
     }
 </script>
+<style>
+    /* Cambia el cursor por un diseño de flecha/mira futurista de alta tecnología */
+    html, body, a, button, input {
+        cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path d="M4 4l12 24 4-10 10-4z" fill="%2300f0ff" stroke="%230055ff" stroke-width="2" stroke-linejoin="round"/><circle cx="4" cy="4" r="2" fill="%23ffffff"/></svg>') 0 0, auto !important;
+    }
+</style>
+
+<video id="videoMetroReal" src="tururu.mp4" preload="auto" style="display:none;"></video>
+
+<script>
+    const videoMetro = document.getElementById('videoMetroReal');
+
+    function reproducirAudioMetro() {
+        // Regresa el video al inicio para que suene con cada clic consecutivo
+        videoMetro.currentTime = 0; 
+        
+        // Ejecuta el video oculto para reproducir el audio exacto de tu archivo
+        videoMetro.play().catch(error => {
+            console.log("El navegador requiere un clic previo en la página para activar el sonido.");
+        });
+    }
+
+    // Activa el sonido real de tu video con cada clic en la pantalla
+    window.addEventListener('click', () => {
+        reproducirAudioMetro();
+    });
+</script>
