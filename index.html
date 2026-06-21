@@ -925,9 +925,110 @@ function toggleFAQ(button) {
 
 <div class="tarjeta-cyber-glow">
     <div class="tarjeta-contenido-interno">
-        <span style="color: #ff007f; font-size: 11px; font-weight: bold; letter-spacing: 2px; text-transform: uppercase;">Actualización 1.5</span>
-        <h4 style="margin: 10px 0; font-size: 18px;">Pagina web</h4>
-        <p style="color: #8a99ad; font-size: 13px; line-height: 1.5; margin-bottom: 0;">Se implemento sistema de muro de mensajes (bug), se implemento modo cyber, retos y saludos con el boton de configuracion arriba a la derecha :3, tambien una nueva pantalla de carga.</p>
+        <span style="color: #ff007f; font-size: 11px; font-weight: bold; letter-spacing: 2px; text-transform: uppercase;">Actualización</span>
+        <h4 style="margin: 10px 0; font-size: 18px;">Servidores Oficiales</h4>
+        <p style="color: #8a99ad; font-size: 13px; line-height: 1.5; margin-bottom: 0;">Se implemento sistema de muro de mensajes (bug), se implemento modo cyber, retos y saludos con el boton de configuracion arriba a la derecha :3, tambien se añadio pantalla de carga.</p>
     </div>
 </div>
-<link rel="icon" type="image/jpeg" href="robloxuniverse.jpg">
+<div id="contenedor-trivia-reparado">
+    <div class="trivia-box" style="background: #222; border: 2px solid #ff5e00; border-radius: 12px; padding: 20px; max-width: 450px; margin: 20px auto; color: white;">
+        <h3 style="color: #ff5e00; margin-top: 0;">🚇 Trivia: ¿Qué tan buen Conductor eres?</h3>
+        <div id="juego-trivia">
+            <div id="pregunta-texto" style="font-size: 1.1rem; font-weight: bold; margin: 15px 0; color: #ffeaa7;"></div>
+            <div id="opciones-contenedor" style="display: flex; flex-direction: column; gap: 10px;"></div>
+        </div>
+        <div id="resultado-trivia" style="display: none;">
+            <h4 id="rango-titulo"></h4>
+            <p id="rango-desc"></p>
+            <button onclick="reiniciarTrivia()" style="background: #ff5e00; color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer;">Intentar de nuevo</button>
+        </div>
+    </div>
+</div>
+
+<script>
+(function() {
+    const preguntas = [
+        { p: "1. Si el semáforo cambia a ROJO, ¿qué haces?", o: ["Acelerar", "Alto total", "Tocar claxon"], c: 1 },
+        { p: "2. ¿Estación de correspondencia importante en L2?", o: ["Zócalo", "Bellas Artes", "Pino Suárez"], c: 2 },
+        { p: "3. ¿Herramienta para cambiar de vía?", o: ["Palanca", "Comandos", "Btools"], c: 0 },
+        { p: "4. ¿Terminal sur de la Línea 2?", o: ["Cuatro Caminos", "Tasqueña", "Gral Anaya"], c: 1 },
+        { p: "5. ¿Qué hacer antes de abrir puertas?", o: ["Acelerar", "Verificar alineación", "Apagar motor"], c: 1 }
+    ];
+
+    let indice = 0;
+    let aciertos = 0;
+
+    function render() {
+        const pCont = document.getElementById('pregunta-texto');
+        const oCont = document.getElementById('opciones-contenedor');
+        
+        if (indice < preguntas.length) {
+            pCont.innerText = preguntas[indice].p;
+            oCont.innerHTML = '';
+            preguntas[indice].o.forEach((txt, i) => {
+                const btn = document.createElement('button');
+                btn.innerText = txt;
+                btn.style = "background: #333; color: white; border: 1px solid #555; padding: 10px; cursor: pointer; border-radius: 5px;";
+                btn.onclick = () => {
+                    if (i === preguntas[indice].c) aciertos++;
+                    indice++;
+                    render();
+                };
+                oCont.appendChild(btn);
+            });
+        } else {
+            document.getElementById('juego-trivia').style.display = 'none';
+            document.getElementById('resultado-trivia').style.display = 'block';
+            document.getElementById('rango-titulo').innerText = "¡Trivia completada!";
+            document.getElementById('rango-desc').innerText = "Aciertos: " + aciertos + " de 5";
+        }
+    }
+
+    window.reiniciarTrivia = function() {
+        indice = 0; aciertos = 0;
+        document.getElementById('juego-trivia').style.display = 'block';
+        document.getElementById('resultado-trivia').style.display = 'none';
+        render();
+    };
+
+    render();
+})();
+</script>
+<div id="generador-container" style="font-family: sans-serif; color: white; max-width: 400px; margin: 20px auto; background: #1a1a1a; padding: 25px; border-radius: 15px; border: 2px solid #e67e22; text-align: center;">
+    
+    <h3 style="color: #e67e22; margin-top: 0;">🎫 Taquilla: Roblox Universe</h3>
+    <input type="text" id="userid-input" placeholder="Ingresa ID de usuario" style="padding: 10px; width: 85%; margin-bottom: 10px; background: #333; color: white; border: none;">
+    <button onclick="generarBoletoSeguro()" style="padding: 10px 20px; background: #e67e22; border: none; color: white; cursor: pointer; font-weight: bold; width: 90%;">Hacer Boleto</button>
+
+    <div id="pantalla-avatar-simple" style="display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.95); z-index: 9999; flex-direction: column; align-items: center; justify-content: center;">
+        <h2 id="status-texto" style="color: #e67e22;">Generando boleto...</h2>
+        <img id="img-avatar-simple" src="" style="width: 200px; border-radius: 50%; border: 5px solid #e67e22; margin: 20px;">
+        <h2 id="titulo-boleto" style="color: white; margin: 0;">¡Boleto A Roblox Universe!</h2>
+    </div>
+</div>
+
+<script>
+function generarBoletoSeguro() {
+    const userId = document.getElementById('userid-input').value;
+    if (!userId) return alert("Por favor, ingresa un ID de usuario.");
+
+    const pantalla = document.getElementById('pantalla-avatar-simple');
+    const img = document.getElementById('img-avatar-simple');
+    const status = document.getElementById('status-texto');
+
+    // Mostramos la pantalla inmediatamente
+    pantalla.style.display = 'flex';
+    status.innerText = "Cargando avatar...";
+    
+    // Cargamos la imagen directamente (esto no da error de seguridad)
+    img.src = `https://www.roblox.com/headshot-thumbnail/image?userId=${userId}&width=420&height=420&format=png`;
+
+    // Cerramos automáticamente después de 5 segundos
+    setTimeout(() => {
+        pantalla.style.display = 'none';
+        document.getElementById('userid-input').value = '';
+    }, 5000);
+}
+</script>
+
+
