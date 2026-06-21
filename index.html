@@ -511,3 +511,228 @@ function toggleFAQ(button) {
         input.value = '';
     }
 </script>
+<style>
+    .barra-temas {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: rgba(0,0,0,0.8);
+        padding: 10px 15px;
+        border-radius: 30px;
+        display: flex;
+        gap: 12px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        border: 1px solid rgba(255,255,255,0.1);
+        z-index: 9999;
+    }
+    .circulo-tema {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        cursor: pointer;
+        border: 2px solid #fff;
+        transition: transform 0.2s;
+    }
+    .circulo-tema:hover { transform: scale(1.2); }
+</style>
+
+<div class="barra-temas">
+    <div class="circulo-tema" style="background: #ff007f;" onclick="cambiarTemaRGB('#ff007f', '#110008')"></div>
+    <div class="circulo-tema" style="background: #00b06f;" onclick="cambiarTemaRGB('#00b06f', '#001a10')"></div>
+    <div class="circulo-tema" style="background: #00f0ff;" onclick="cambiarTemaRGB('#00f0ff', '#001114')"></div>
+    <div class="circulo-tema" style="background: #111111;" onclick="cambiarTemaRGB('#ffffff', '#111111')"></div>
+</div>
+
+<script>
+    function cambiarTemaRGB(colorPrincipal, colorFondo) {
+        document.body.style.backgroundColor = colorFondo;
+        document.body.style.color = colorPrincipal;
+        
+        // Aplica el color principal a todos los títulos de tu web automáticamente
+        document.querySelectorAll('h1, h2, h3').forEach(titulo => {
+            titulo.style.color = colorPrincipal;
+        });
+    }
+</script>
+<style>
+    .fondo-liquido-moderno {
+        max-width: 600px;
+        height: 150px;
+        margin: 40px auto;
+        border-radius: 20px;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    .capa-liquida {
+        position: absolute;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(45deg, #ff007f, #7000ff, #00f0ff, #ff007f);
+        background-size: 400% 400%;
+        animation: gradienteLiquido 8s ease infinite;
+        z-index: 1;
+    }
+    .texto-sobre-liquido {
+        position: relative;
+        z-index: 2;
+        color: white;
+        font-size: 24px;
+        font-weight: 900;
+        letter-spacing: 2px;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        text-transform: uppercase;
+    }
+    @keyframes gradienteLiquido {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+</style>
+
+<div class="fondo-liquido-moderno">
+    <div class="capa-liquida"></div>
+    <div class="texto-sobre-liquido">¡En roblox Universe, tu nos importas!!</div>
+</div>
+<style>
+    /* Botón flotante animado de engranaje */
+    .btn-ajustes-flotante {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: linear-gradient(135deg, #00b06f, #00e676);
+        border: none;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        font-size: 22px;
+        cursor: pointer;
+        box-shadow: 0 4px 20px rgba(0,176,111,0.5);
+        z-index: 10000;
+        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .btn-ajustes-flotante:hover { 
+        transform: rotate(90deg) scale(1.1); 
+    }
+    
+    /* Panel lateral futurista */
+    .panel-lateral {
+        position: fixed;
+        top: 0;
+        right: -320px;
+        width: 280px;
+        height: 100%;
+        background: rgba(15, 20, 28, 0.95);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        box-shadow: -10px 0 40px rgba(0,0,0,0.6);
+        transition: right 0.4s cubic-bezier(0.1, 0.9, 0.2, 1);
+        z-index: 9999;
+        padding: 30px 20px;
+        color: white;
+        font-family: sans-serif;
+        box-sizing: border-box;
+        border-left: 2px solid rgba(0, 176, 111, 0.3);
+    }
+    .panel-lateral.abierto { 
+        right: 0; 
+    }
+    
+    .panel-titulo {
+        color: #00b06f; 
+        margin-top: 40px; 
+        font-size: 22px;
+        letter-spacing: 1px;
+        text-shadow: 0 0 10px rgba(0,176,111,0.3);
+        margin-bottom: 5px;
+    }
+
+    /* Botones de acción real dentro del panel */
+    .btn-panel-accion {
+        width: 100%;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: #fff;
+        padding: 14px;
+        margin-bottom: 12px;
+        border-radius: 12px;
+        font-weight: bold;
+        font-size: 14px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        transition: all 0.3s ease;
+        text-align: left;
+    }
+    .btn-panel-accion:hover {
+        background: linear-gradient(90deg, rgba(0,176,111,0.2), transparent);
+        border-color: #00b06f;
+        transform: translateX(-5px);
+        box-shadow: -5px 0 10px rgba(0,176,111,0.2);
+    }
+    .icono-btn {
+        font-size: 18px;
+    }
+</style>
+
+<button class="btn-ajustes-flotante" onclick="togglePanelLateral()">⚙️</button>
+
+<div class="panel-lateral" id="miPanelLateral">
+    <h3 class="panel-titulo">🕹️ CONTROL PANEL</h3>
+    <p style="font-size: 11px; color: #7f8c8d; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px;">Interactúa con la web</p>
+    
+    <button class="btn-panel-accion" onclick="ejecutarSaludo()">
+        <span class="icono-btn">👋</span> <span>Saludar Comunidad</span>
+    </button>
+    
+    <button class="btn-panel-accion" onclick="activarModoCyberpunk()">
+        <span class="icono-btn">🌌</span> <span>Modo Cyberpunk</span>
+    </button>
+    
+    <button class="btn-panel-accion" onclick="lanzarSuerte()">
+        <span class="icono-btn">🎲</span> <span>Reto de la Suerte</span>
+    </button>
+</div>
+
+<script>
+    // Función para abrir y cerrar el panel lateral deslizable
+    function togglePanelLateral() {
+        document.getElementById('miPanelLateral').classList.toggle('abierto');
+    }
+
+    // ACCIÓN 1: Al presionar "Saludar Comunidad"
+    function ejecutarSaludo() {
+        alert("quiubole, como andamos");
+    }
+
+    // ACCIÓN 2: Al presionar "Modo Cyber" cambia colores de fondo al instante
+    function activarModoCyberpunk() {
+        document.body.style.backgroundColor = "#070a0e";
+        document.body.style.color = "#00ff99";
+        
+        // Pinta todos los h1, h2 y h3 de color verde neón flotante
+        document.querySelectorAll('h1, h2, h3').forEach(titulo => {
+            titulo.style.color = "#00ffff";
+            titulo.style.textShadow = "0 0 8px rgba(0,255,153,0.5)";
+        });
+        alert("👾 ¡Modo Cyberpunk Activado!");
+    }
+
+    // ACCIÓN 3: Al presionar "Reto de la Suerte" lanza un desafío aleatorio en pantalla
+    function lanzarSuerte() {
+        const retos = [
+            "🏆 Desafío: Gana una partida de Roblox usando solo una mano hoy.",
+            "🎨 Desafío: Cambia tu avatar por completo a color cafe caca.",
+            "👥 Desafío: Regala 1 skin case en rivals."
+        ];
+        const retoFinal = retos[Math.floor(Math.random() * retos.length)];
+        alert(retoFinal);
+    }
+</script>
