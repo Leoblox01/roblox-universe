@@ -320,3 +320,194 @@ function toggleFAQ(button) {
     }
 }
 </script>
+<style>
+    .seccion-muro {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        text-align: center;
+        font-family: sans-serif;
+    }
+
+    .muro-titulo {
+        font-size: 26px;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    body.dark-mode .muro-titulo {
+        color: #fff;
+    }
+
+    .muro-controles {
+        background: #f4f6f7;
+        padding: 20px;
+        border-radius: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        max-width: 450px;
+        margin: 0 auto 30px auto;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    body.dark-mode .muro-controles {
+        background: #2c3e50;
+    }
+
+    .muro-input {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        font-size: 14px;
+        box-sizing: border-box;
+        outline: none;
+    }
+
+    body.dark-mode .muro-input {
+        background: #34495e;
+        border-color: #455a64;
+        color: #fff;
+    }
+
+    .muro-opciones {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .muro-colores {
+        display: flex;
+        gap: 8px;
+    }
+
+    .color-btn {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        border: 2px solid transparent;
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+
+    .color-btn:hover, .color-btn.activo {
+        transform: scale(1.2);
+        border-color: #333;
+    }
+
+    body.dark-mode .color-btn:hover, body.dark-mode .color-btn.activo {
+        border-color: #fff;
+    }
+
+    .muro-btn {
+        background-color: #e67e22;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+    .muro-btn:hover {
+        background-color: #d35400;
+    }
+
+    .muro-tablero {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        min-height: 150px;
+        padding: 20px;
+        background: #fffdf0;
+        border: 2px dashed #ddd;
+        border-radius: 15px;
+    }
+
+    body.dark-mode .muro-tablero {
+        background: #1a252f;
+        border-color: #34495e;
+    }
+
+    .nota-postit {
+        width: 140px;
+        min-height: 140px;
+        padding: 15px;
+        box-shadow: 5px 5px 10px rgba(0,0,0,0.15);
+        border-bottom-right-radius: 20px;
+        font-family: 'Comic Sans MS', cursive, sans-serif;
+        font-size: 14px;
+        color: #2c3e50;
+        word-wrap: break-word;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        animation: aparecerNota 0.3s ease-out;
+    }
+
+    @keyframes aparecerNota {
+        from { transform: scale(0); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+    }
+</style>
+
+<div class="seccion-muro">
+    <h2 class="muro-titulo">📌 Muro de Mensajes de la Comunidad</h2>
+    <p style="color: #7f8c8d; margin-bottom: 20px; font-size: 14px;">¡Deja tu saludo, tu username de Roblox o un mensaje para el canal!</p>
+
+    <div class="muro-controles">
+        <input type="text" id="muro-texto" class="muro-input" placeholder="Escribe algo corto aquí... (máx. 60 caracteres)" maxlength="60">
+        
+        <div class="muro-opciones">
+            <div class="muro-colores">
+                <button class="color-btn activo" style="background-color: #fff68f;" onclick="cambiarColorNota('#fff68f', this)"></button>
+                <button class="color-btn" style="background-color: #ffb6c1;" onclick="cambiarColorNota('#ffb6c1', this)"></button>
+                <button class="color-btn" style="background-color: #98fb98;" onclick="cambiarColorNota('#98fb98', this)"></button>
+                <button class="color-btn" style="background-color: #87cefa;" onclick="cambiarColorNota('#87cefa', this)"></button>
+            </div>
+            <button class="muro-btn" onclick="agregarNota()">Publicar Nota</button>
+        </div>
+    </div>
+
+    <div class="muro-tablero" id="tablero-notas">
+        <!-- Las notas se irán pegando aquí adentro automáticamente -->
+    </div>
+</div>
+
+<script>
+    let colorSeleccionado = '#fff68f';
+
+    function cambiarColorNota(color, boton) {
+        colorSeleccionado = color;
+        document.querySelectorAll('.color-btn').forEach(btn => btn.classList.remove('activo'));
+        boton.classList.add('activo');
+    }
+
+    function agregarNota() {
+        const input = document.getElementById('muro-texto');
+        const texto = input.value.trim();
+        const tablero = document.getElementById('tablero-notas');
+
+        if (texto === '') {
+            alert('¡Escribe un mensaje primero!');
+            return;
+        }
+
+        const nuevaNota = document.createElement('div');
+        nuevaNota.className = 'nota-postit';
+        nuevaNota.style.backgroundColor = colorSeleccionado;
+        nuevaNota.innerText = texto;
+
+        // Genera una inclinación aleatoria para que parezca una nota real pegada de prisa
+        const rotacionAleatoria = Math.floor(Math.random() * 12) - 6; 
+        nuevaNota.style.transform = `rotate(${rotacionAleatoria}deg)`;
+
+        tablero.appendChild(nuevaNota);
+        input.value = '';
+    }
+</script>
