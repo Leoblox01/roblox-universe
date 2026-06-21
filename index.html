@@ -98,6 +98,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <header>
@@ -763,3 +764,170 @@ function toggleFAQ(button) {
         reproducirAudioMetro();
     });
 </script>
+<div id="pantalla-carga" style="
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0b0f19;
+    z-index: 999999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+">
+    <div style="text-align: center; width: 280px;">
+        
+        <div id="texto-carga" style="
+            color: #00f0ff;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px #00f0ff;
+            animation: parpadeoDigital 1s infinite alternate;
+        ">
+            Cargando Sistema...
+        </div>
+
+        <div style="
+            width: 100%;
+            height: 6px;
+            background-color: #121824;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.1);
+        ">
+            <div id="progreso-carga" style="
+                width: 0%;
+                height: 100%;
+                background: linear-gradient(90deg, #7000ff, #ff007f);
+                box-shadow: 0 0 12px #ff007f;
+                border-radius: 10px;
+                transition: width 0.05s linear;
+            "></div>
+        </div>
+
+        <div id="porcentaje-carga" style="
+            color: #ffeaa7;
+            font-size: 13px;
+            margin-top: 10px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        ">0%</div>
+
+    </div>
+</div>
+
+<style>
+    @keyframes parpadeoDigital {
+        0% { opacity: 0.4; text-shadow: 0 0 4px #00f0ff; }
+        100% { opacity: 1; text-shadow: 0 0 12px #00f0ff, 0 0 20px #ff007f; }
+    }
+</style>
+
+<video id="audioBienvenidaMetro" src="tururu.mp4" preload="auto" style="display:none;"></video>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const barra = document.getElementById('progreso-carga');
+        const textoPorcentaje = document.getElementById('porcentaje-carga');
+        const textoEstado = document.getElementById('texto-carga');
+        const pantalla = document.getElementById('pantalla-carga');
+        const audioMetro = document.getElementById('audioBienvenidaMetro');
+
+        let progreso = 0;
+
+        // Simula la velocidad de carga del sistema de forma fluida
+        const intervaloCarga = setInterval(() => {
+            progreso += 1;
+            
+            // Actualiza visualmente la barra y los números en tiempo real
+            barra.style.width = progreso + '%';
+            textoPorcentaje.innerText = progreso + '%';
+
+            // Pequeño cambio visual justo antes de terminar
+            if (progreso === 90) {
+                textoEstado.innerText = "Acceso Concedido";
+                textoEstado.style.color = "#00ffaa";
+                textoEstado.style.textShadow = "0 0 10px #00ffaa";
+            }
+
+            // Cuando llega al 100%, termina la carga
+            if (progreso >= 100) {
+                clearInterval(intervaloCarga);
+                
+                // 1. Ejecuta el sonido real de tu archivo tururu.mp4
+                audioMetro.currentTime = 0;
+                audioMetro.play().catch(err => {
+                    console.log("Nota: El navegador requiere que interactúes con la página antes de reproducir audio automáticamente.");
+                });
+
+                // 2. Desvanece la pantalla de carga con una transición limpia hacia tu web original
+                setTimeout(() => {
+                    pantalla.style.opacity = '0';
+                    pantalla.style.visibility = 'hidden';
+                }, 400); 
+            }
+        }, 30); // Controla la velocidad aquí (30ms por cada 1%)
+    });
+</script>
+<style>
+    .tarjeta-cyber-glow {
+        position: relative;
+        background: #0f141d;
+        border-radius: 16px;
+        padding: 25px;
+        max-width: 300px;
+        margin: 20px auto;
+        font-family: sans-serif;
+        color: white;
+        overflow: hidden;
+        border: 1px solid rgba(255,255,255,0.05);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    
+    /* El truco del borde neón dinámico usando un pseudoelemento trasero */
+    .tarjeta-cyber-glow::before {
+        content: '';
+        position: absolute;
+        top: -50%; left: -50%;
+        width: 200%; height: 200%;
+        background: conic-gradient(transparent, transparent, transparent, #00f0ff, #ff007f);
+        animation: rotarBordeGlow 4s linear infinite;
+        z-index: 1;
+        opacity: 0; /* Apagado por defecto */
+        transition: opacity 0.3s;
+    }
+    
+    /* Enciende el borde brillante solo al pasar el mouse encima */
+    .tarjeta-cyber-glow:hover::before { opacity: 1; }
+
+    /* Capa interna negra que tapa el centro para que solo se vea el borde */
+    .tarjeta-contenido-interno {
+        position: relative;
+        background: #0f141d;
+        border-radius: 14px;
+        padding: 10px;
+        z-index: 2;
+    }
+
+    @keyframes rotarBordeGlow {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+</style>
+
+<div class="tarjeta-cyber-glow">
+    <div class="tarjeta-contenido-interno">
+        <span style="color: #ff007f; font-size: 11px; font-weight: bold; letter-spacing: 2px; text-transform: uppercase;">Actualización 1.5</span>
+        <h4 style="margin: 10px 0; font-size: 18px;">Pagina web</h4>
+        <p style="color: #8a99ad; font-size: 13px; line-height: 1.5; margin-bottom: 0;">Se implemento sistema de muro de mensajes (bug), se implemento modo cyber, retos y saludos con el boton de configuracion arriba a la derecha :3, tambien una nueva pantalla de carga.</p>
+    </div>
+</div>
+
