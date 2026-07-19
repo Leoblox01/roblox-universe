@@ -2,1033 +2,118 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roblox Unive</title>
+    <!-- Icono de la página -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚇</text></svg>">
+    
+    <title>Informacion Trenes CDMX</title>
     <style>
-        /* Estilos generales para que la página se vea moderna */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f7f6;
-            color: #333;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+        body { background: #0A0A0A; color: #FF7F00; font-family: 'Courier New', monospace; display: flex; margin: 0; height: 100vh; overflow: hidden; }
+        
+        /* PANTALLA DE CARGA */
+        #carga { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 1000; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 1s ease; }
+        #carga img { width: 80%; max-width: 800px; border: 2px solid #FF7F00; box-shadow: 0 0 20px #FF7F00; }
+        .loading-text { margin-top: 20px; font-weight: bold; letter-spacing: 5px; animation: blink 1s infinite; }
+        
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
 
-        header {
-            background-color: #2c3e50;
-            color: white;
-            width: 100%;
-            text-align: center;
-            padding: 20px 0;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        main {
-            max-width: 1000px;
-            padding: 40px 20px;
-            text-align: center;
-        }
-
-        /* Contenedor de la galería de imágenes */
-        .galeria {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-top: 30px;
-        }
-
-        .tarjeta {
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-            width: 280px;
-        }
-
-        /* Efecto al pasar el mouse por encima de la tarjeta */
-        .tarjeta:hover {
-            transform: translateY(-5px);
-        }
-
-        .tarjeta img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .tarjeta-info {
-            padding: 15px;
-        }
-
-        /* Estilos de los botones */
-        .btn {
-            display: inline-block;
-            background-color: #3498db;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: bold;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            margin-top: 10px;
-        }
-
-        .btn:hover {
-            background-color: #2980b9;
-        }
-
-        .btn:active {
-            transform: scale(0.98);
-        }
-
-        .btn-secundario {
-            background-color: #e67e22;
-        }
-
-        .btn-secundario:hover {
-            background-color: #d35400;
-        }
+        /* DASHBOARD */
+        #panel-izq { width: 300px; background: #000; border-right: 2px solid #FF7F00; padding: 20px; overflow-y: auto; }
+        #panel-der { flex: 1; padding: 30px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; overflow-y: auto;}
+        h2 { border-bottom: 2px solid #FF7F00; padding-bottom: 10px; text-transform: uppercase; margin-top: 0;}
+        button { display: block; width: 100%; margin: 8px 0; background: transparent; border: 1px solid #FF7F00; color: #FF7F00; cursor: pointer; padding: 10px; font-weight: bold; text-transform: uppercase; font-family: 'Courier New', monospace;}
+        button:hover { background: #FF7F00; color: #000; box-shadow: 0 0 10px #FF7F00; }
+        
+        /* Estilos para la info y la imagen dinámica */
+        #info-contenedor { display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 700px; }
+        #titulo { margin-bottom: 10px; font-size: 2em;}
+        #datos { font-size: 1.1em; line-height: 1.4; text-align: justify; margin-top: 15px; }
+        
+        /* ESTILO CLAVE PARA LA IMAGEN: Se ajusta al contenedor sin deformarse */
+        #imagen-dinamica { max-width: 100%; max-height: 400px; border: 2px solid #FF7F00; box-shadow: 0 0 15px #FF7F00; margin-top: 20px; display: none; object-fit: contain; }
     </style>
 </head>
-
 <body>
 
-    <header>
-        <h1>Explora Roblox Universe</h1>
-        <p>Una página simple, pero con el fin para usuarios de roblox universe</p>
-    </header>
+<div id="carga">
+    <!-- Imagen de carga (se mantiene igual) -->
+    <img src="NM22.jpeg" alt="NM-22">
+    <div class="loading-text">INICIALIZANDO SISTEMA...</div>
+</div>
 
-    <main>
-        <h2>Links</h2>
-        <p>Haz clic en los botones para tener tanto el servidor de discord o el canal de yt.</p>
+<div id="panel-izq">
+    <h2>CONTROL CENTRAL</h2>
+    <button onclick="ver('MP-68')">MP-68</button>
+    <button onclick="ver('NM-73')">NM-73</button>
+    <button onclick="ver('NM-79')">NM-79</button>
+    <button onclick="ver('MP-82')">MP-82</button>
+    <button onclick="ver('NC-82')">NC-82</button>
+    <button onclick="ver('NM-83')">NM-83</button>
+    <button onclick="ver('FM-86')">FM-86</button>
+    <button onclick="ver('NE-92')">NE-92</button>
+    <button onclick="ver('FM-95A')">FM-95A</button>
+    <button onclick="ver('NM-02')">NM-02</button>
+    <button onclick="ver('FE-07')">FE-07</button>
+    <button onclick="ver('FE-10')">FE-10</button>
+    <button onclick="ver('NM-16')">NM-16</button>
+    <button onclick="ver('NM-22 / NCH-22')">NM-22 / NCH-22</button>
+</div>
 
-        <div class="galeria">
-            <div class="tarjeta">
-                <img src="https://assets.turbologo.com/blog/tr/2019/10/19134551/youtube-logo-illustration-958x575.jpg" alt="Logo YT">
-                <div class="tarjeta-info">
-                    <h3>Canal de yt</h3>
-                    <p>Descubre los videos que subamos mediante el canal.</p>
-                    <button class="btn" onclick="alert('aqui esta el canal= https://www.youtube.com/@RobloxUniverseLatam')">Ver más</button>
-                </div>
-            </div>
+<div id="panel-der">
+    <div id="info-contenedor">
+        <h1 id="titulo">SISTEMA INICIALIZADO</h1>
+        <!-- Aquí aparecerá la imagen dinámicamente -->
+        <img id="imagen-dinamica" src="" alt="Imagen del tren seleccionado">
+        <p id="datos">Selecciona un modelo del panel izquierdo para desplegar especificaciones técnicas.</p>
+    </div>
+</div>
 
-            <div class="tarjeta">
-                <img src="https://tse1.mm.bing.net/th/id/OIP.JCVVh1hAV_CThLuKYyd6_QHaDt?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Metro CDMX">
-                <div class="tarjeta-info">
-                    <h3>Discord :3</h3>
-                    <p>Explora los canales del servidor y convive con otros.</p>
-                    <button class="btn btn-secundario" onclick="alert('Bienvenido al servidor, esperemos y disfrutes= https://discord.gg/yAvs7tPP9a')">Explorar</button>
-                </div>
-            </div>
-        </div>
-    </main>
+<script>
+    // Quita la pantalla de carga después de 3 segundos
+    setTimeout(() => { document.getElementById('carga').style.opacity = '0'; setTimeout(() => document.getElementById('carga').style.display = 'none', 1000); }, 3000);
+
+    // Base de datos de texto (se mantiene igual)
+    const db_texto = {
+        "MP-68": "MP-68: Su nombre completo es Materiel Roulant Sur Pneumatiques 1968 (Al español traducido como Material Sobre Neumaticos del 1968), fue hecho por la empresa Alstom, de origen frances, este fue el tren que inauguro el metro con la Linea 1, su primer sistema de traccion fue el JH, pero en su rehabilitacion del 2014 fue Chopper IGBT, Sobre este hubo otra rehabilitacion en el 1996, donde existieron los MP-68R96, MP-68R96B y MP-68R96C, los nombres de estos mas que nada el R96, R96B o C no es una serie, son las iniciales de su marca rehabilitadora, por ejemplo: MP-68R96CAF o MP68R96BOMBARDIER, se le conoce a los R96C por su dada de baja, debido al choque en Tacubaya del 2020, actualmente los mp-68 se encuentran en Lineas 5 y B",
+        "NM-73": "NM-73: El nombre completo de este tren seria Neumatico Mexicano del 1973, fue el 2do tren de catalogo del metro, siendo este la compañia del MP-68 en la inaugurada Linea 1 antes de la Linea 2, cuando se inauguro Linea 2 algunos trenes se trasladaron ahi, este tren tuvo una motris (195-196) que probo un sistema de traccion como prototipo, siendo este el quessard, pero fue dado de baja y convertido a carro NE-92 (550-551), actualmente se encuentra dado de baja.",
+        "NM-79": "NM-79: Este fue el 3er modelo del metro de la ciudad de mexico, la flota se distribuyo entre las 3 lineas que estaban abiertas (Linea 1, 2 y 3), tuvo trenes recuperados gracias a Ricardo ortega, uno de los mas conocidos es el Cri-Cri, tambien se le puso el esquema mandarino.",
+        "MP-82": "MP-82: Este tren fue el 2do tren que se le adquirió a alstom, siendo este llamado MP-82 (Materiel Sur Pneumatique 1982), este tren conto con un sistema de traccion Chopper, pero era frances, por lo que sonaba como Fa Si Fa (notas musicales), despues termino cambiandose este en el 2015 a IGBT.",
+        "NC-82": "NC-82: Este tren fue adquirido desde canada a la empresa Bombardier, el nombre seria Neumatico Canadiense 1982, este tren se le caracteriza por su sistema Chopper scr (hasta el momento lo conserva), tambien se le conoce como *El borracho* por sus cierres de puertas distorsionados.",
+        "NM-83": "NM-83: Neumático Mexicano 1983, fabricado por Concarril y Alstom. Es la columna vertebral del Metro, reconocido por su alta fiabilidad y capacidad de carga. Es un tren de rodadura neumática que ha superado la vida útil programada gracias a sus constantes rehabilitaciones.",
+        "FM-86": "FM-86: Férreo Mexicano 1986, fabricado por Concarril específicamente para la Línea A. Este modelo introdujo la rodadura férrea al sistema, utilizando una configuración de alimentación eléctrica por catenaria en lugar de la barra guía tradicional.",
+        "NE-92": "NE-92: Neumático Español 1992, fabricado por CAF. Este modelo marcó un salto tecnológico al integrar sistemas electrónicos de control más complejos y mejoras significativas en la eficiencia de su sistema de frenado neumático.",
+        "FM-95A": "FM-95A: Este tren su nombre completo seria Ferreo Mexicano 1995 de la linea A, el cual se le conoce por ser extinto debido a sus fallas, sus constructores fueron Caf y bombardier, intentaron utilizar informatica para monitorear los trenes pero fallo, la flota se dio de baja, en el 2017 se recuperaron solamente 2 trenes pero volvieron a fallar, hasta el momento su flota es una baja total.",
+        "NM-02": "NM-02: Este tren fue igual que el FM-95A, construido por las mismas empresas juntas, reparando el error informatico, este tren fue hecho especificamente para la modernizacion de la linea 2 en el año 2006, el contrato se hizo en el 2002, este tren tiene un sistema de traccion VVVF, lo que a algunos metro aficionados amamos en sus arranques y frenado en velocidad.",
+        "FE-07": "FE-07: Siglas de Ferreo Español 2007, construido por la empresa CAF. Este modelo fue diseñado para operar con rodadura férrea, destacando por la implementación de sistemas de frenado magnético y una estructura reforzada para mejorar la seguridad y la eficiencia en la operación de las líneas férreas del sistema.",
+        "FE-10": "FE-10: Ferreo Español 2010, también fabricado por CAF, es el modelo insignia diseñado específicamente para la Línea 12. Su característica técnica mas sobresaliente es el uso de bogies autoguiados, los cuales permiten al tren sortear curvas cerradas con una menor fricción y desgaste, garantizando una marcha mas suave y estable durante el servicio.",
+        "NM-16": "NM-16: El nombre de este tren es Neumatico Mexicano del 2016, fue construido por CAF, era como la modernizacion de la linea 1, de los 45 trenes contemplados, fueron solamente 10 trenes, lo que seguirian con los trenes viejos, al llegar los NM-16 a pruebas se rumoreaba la incompatibilidad de pilotaje automatico, y fue cierto, este tren no era apto para ese pilotaje, por lo que fue una de las causas de la modernizacion de la linea 1, siendo estas vida util y otro tipo de pilotaje, el NM-16 fue la ultima adquisicion a CAF, debido a las fallas que este presentaba, como ventiladores rotos, fallas de pilotaje, entre otras, el NM-16 Cuenta igualmente con un VVVF del 2016",
+        "NM-22 / NCH-22": "NM-22: Este tren es el mas moderno del catalogo de la ciudad de mexico, este tren seria el primero en tener dos nombres, siendo el NM-22 (Neumatico Mexicano 2022) y NCH-22 (Neumatico CHino 2022), este tren fue adquirido para la modernizacion de la linea 1, se adquirio a la empresa CRRC Zhuzhou Locomotive, importados de china, este tren vendria con tecnologia nueva, como pantallas al interior, varios tipos de timbre de cierre de puertas, nuevo sonido de proxima estacion, dejando al clasico tururu, pilotaje CBTC (Control Base a travez de TeleComunicaciones), monitoreado por Wi-Fi, lo que los permite ir pegados sin tener colisiones, tiene un VVVF del año 2022, y suena similar al del NM-16"
+    };
+
+    // Base de datos de imágenes (aquí definimos cuál imagen carga para cada botón)
+    const db_imagenes = {
+        // Puedes agregar imágenes para los otros trenes después, ejemplo: "MP-68": "mp68.jpg"
+        "NM-22 / NCH-22": "nm22.jpeg" // ESTA ES LA QUE QUERÍAS. Busca el archivo nm22.jpeg
+    };
+
+    function ver(modelo) {
+        // Actualiza el título
+        document.getElementById('titulo').innerText = modelo;
+        
+        // Actualiza el texto
+        document.getElementById('datos').innerText = db_texto[modelo];
+        
+        // Actualiza la imagen dinámicamente
+        const imgElement = document.getElementById('imagen-dinamica');
+        const archivoImagen = db_imagenes[modelo]; // Busca en la base de datos de imágenes
+
+        if (archivoImagen) {
+            imgElement.src = archivoImagen; // Pone la ruta de la imagen
+            imgElement.style.display = 'block'; // Muestra la etiqueta <img>
+        } else {
+            imgElement.style.display = 'none'; // Oculta la imagen si no hay (puedes poner una por defecto)
+        }
+    }
+</script>
 
 </body>
 </html>
-<div class="tarjeta">
-    <img src="https://tr.rbxcdn.com/180DAY-f08fe6ed2c53b9149dffa807e431abec/768/432/Image/Webp/noFilter" alt="Tu Juego de Roblox">
-    <div class="tarjeta-info">
-        <h3>Metro CDMX Linea 2</h3>
-        <p>Un juego de rol sobre el STCM (Sistema de transporte colectivo metro) Hecho por BlockInBlock :D.</p>
-        
-        <a href="https://www.roblox.com/es/games/18284622026/Metro-CDMX-L-nea-2" target="_blank" class="btn" style="background-color: #00b06f; display: block; text-decoration: none; margin-top: 10px;">LLEVAME ALLA!</a>
-    </div>
-</div>
-<footer style="background-color: #2c3e50; color: white; width: 100%; text-align: center; padding: 20px 0; margin-top: 60px;">
-    <p>© 2026 Roblox Universe. Creado por Leo_Blox</p>
-</footer>
-<h2 style="margin-top: 60px; color: #2c3e50;">Equipo de Roblox Universe</h2>
-<p>Los encargados de mantener a Roblox Universe sano.</p>
-
-<div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 20px;">
-    
-    <div style="background: white; border-radius: 50px; padding: 10px 25px; display: flex; align-items: center; gap: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #eee;" class="tarjeta-staff">
-        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=150&h=150" alt="Avatar" style="width: 40px; height: 40px; border-radius: 50%;">
-        <div style="text-align: left;">
-            <h4 style="margin: 0; font-size: 16px;">Leo_Blox</h4>
-            <span style="font-size: 12px; color: #e67e22; font-weight: bold;">👑 Creador</span>
-        </div>
-    </div>
-
-    <div style="background: white; border-radius: 50px; padding: 10px 25px; display: flex; align-items: center; gap: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #eee;" class="tarjeta-staff">
-        <img src="https://images.rbxcdn.com/95e691aa389fe558d116345ec4668ba4.png" alt="Avatar" style="width: 40px; height: 40px; border-radius: 50%;">
-        <div style="text-align: left;">
-            <h4 style="margin: 0; font-size: 16px;">Sin mods</h4>
-            <span style="font-size: 12px; color: #2ecc71; font-weight: bold;">🛠️ Admin</span>
-        </div>
-    </div>
-
-</div>
-
-<style>
-    body.dark-mode .tarjeta-staff {
-        background-color: #262626 !important;
-        border-color: #333 !important;
-    }
-</style>
-<style>
-    .seccion-faq {
-        max-width: 650px;
-        margin: 40px auto;
-        padding: 0 20px;
-        text-align: left;
-    }
-
-    .titulo-faq {
-        text-align: center;
-        font-size: 24px;
-        margin-bottom: 25px;
-        color: #333;
-    }
-
-    .faq-item {
-        background-color: #fff;
-        border-radius: 12px;
-        margin-bottom: 12px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        overflow: hidden;
-        border: 1px solid #eaeaea;
-        transition: all 0.3s ease;
-    }
-
-    .faq-pregunta {
-        width: 100%;
-        background: none;
-        border: none;
-        padding: 18px 20px;
-        text-align: left;
-        font-size: 16px;
-        font-weight: bold;
-        color: #2c3e50;
-        cursor: pointer;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        transition: background 0.3s ease;
-    }
-
-    .faq-pregunta:hover {
-        background-color: #f9f9f9;
-    }
-
-    .faq-pregunta span {
-        font-size: 20px;
-        color: #e67e22;
-        transition: transform 0.3s ease;
-    }
-
-    .faq-respuesta {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease-out;
-        background-color: #fafafa;
-    }
-
-    .faq-respuesta p {
-        padding: 0 20px 18px 20px;
-        margin: 0;
-        color: #555;
-        line-height: 1.6;
-        font-size: 14px;
-    }
-
-    body.dark-mode .titulo-faq { 
-        color: #fff; 
-    }
-
-    body.dark-mode .faq-item {
-        background-color: #2c3e50;
-        border-color: #34495e;
-    }
-
-    body.dark-mode .faq-pregunta { 
-        color: #fff; 
-    }
-
-    body.dark-mode .faq-pregunta:hover { 
-        background-color: #34495e; 
-    }
-
-    body.dark-mode .faq-respuesta { 
-        background-color: #1a252f; 
-    }
-
-    body.dark-mode .faq-respuesta p { 
-        color: #bdc3c7; 
-    }
-</style>
-
-<div class="seccion-faq">
-    <h2 class="titulo-faq">💬 Preguntas Frecuentes</h2>
-
-    <div class="faq-item">
-        <button class="faq-pregunta" onclick="toggleFAQ(this)">
-            ¿Cómo puedo ser Moderador del server de Discord? <span>+</span>
-        </button>
-        <div class="faq-respuesta">
-            <p>Para ser uno de nosotros, necesitamos ver tu conducta, disciplina y que pases el cuestionario de convocatoria</p>
-        </div>
-    </div>
-
-    <div class="faq-item">
-        <button class="faq-pregunta" onclick="toggleFAQ(this)">
-            ¿Cuándo se hacen convocatorias al staff? <span>+</span>
-        </button>
-        <div class="faq-respuesta">
-            <p>Las convocatorias para ser parte del staff se hacen cuando haya los suficientes miembros en el servidor</p>
-        </div>
-    </div>
-
-    <div class="faq-item">
-        <button class="faq-pregunta" onclick="toggleFAQ(this)">
-            ¿Puedo jugar contigo en Roblox? <span>+</span>
-        </button>
-        <div class="faq-respuesta">
-            <p>¡Por supuesto! Solo no me agarres haciendo tareas y asi :p.</p>
-        </div>
-    </div>
-</div>
-
-<script>
-function toggleFAQ(button) {
-    const respuesta = button.nextElementSibling;
-    const signo = button.querySelector('span');
-    
-    document.querySelectorAll('.faq-respuesta').forEach(item => {
-        if (item !== respuesta) {
-            item.style.maxHeight = null;
-            item.previousElementSibling.querySelector('span').innerText = "+";
-            item.previousElementSibling.querySelector('span').style.transform = "rotate(0deg)";
-        }
-    });
-
-    if (respuesta.style.maxHeight) {
-        respuesta.style.maxHeight = null;
-        signo.innerText = "+";
-        signo.style.transform = "rotate(0deg)";
-    } else {
-        respuesta.style.maxHeight = respuesta.scrollHeight + "px";
-        signo.innerText = "−";
-        signo.style.transform = "rotate(180deg)";
-    }
-}
-</script>
-<style>
-    .seccion-muro {
-        max-width: 800px;
-        margin: 50px auto;
-        padding: 20px;
-        text-align: center;
-        font-family: sans-serif;
-    }
-
-    .muro-titulo {
-        font-size: 26px;
-        color: #333;
-        margin-bottom: 10px;
-    }
-
-    body.dark-mode .muro-titulo {
-        color: #fff;
-    }
-
-    .muro-controles {
-        background: #f4f6f7;
-        padding: 20px;
-        border-radius: 15px;
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        max-width: 450px;
-        margin: 0 auto 30px auto;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    }
-
-    body.dark-mode .muro-controles {
-        background: #2c3e50;
-    }
-
-    .muro-input {
-        width: 100%;
-        padding: 12px;
-        border: 2px solid #ddd;
-        border-radius: 8px;
-        font-size: 14px;
-        box-sizing: border-box;
-        outline: none;
-    }
-
-    body.dark-mode .muro-input {
-        background: #34495e;
-        border-color: #455a64;
-        color: #fff;
-    }
-
-    .muro-opciones {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .muro-colores {
-        display: flex;
-        gap: 8px;
-    }
-
-    .color-btn {
-        width: 25px;
-        height: 25px;
-        border-radius: 50%;
-        border: 2px solid transparent;
-        cursor: pointer;
-        transition: transform 0.2s;
-    }
-
-    .color-btn:hover, .color-btn.activo {
-        transform: scale(1.2);
-        border-color: #333;
-    }
-
-    body.dark-mode .color-btn:hover, body.dark-mode .color-btn.activo {
-        border-color: #fff;
-    }
-
-    .muro-btn {
-        background-color: #e67e22;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 8px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: background 0.2s;
-    }
-
-    .muro-btn:hover {
-        background-color: #d35400;
-    }
-
-    .muro-tablero {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 20px;
-        min-height: 150px;
-        padding: 20px;
-        background: #fffdf0;
-        border: 2px dashed #ddd;
-        border-radius: 15px;
-    }
-
-    body.dark-mode .muro-tablero {
-        background: #1a252f;
-        border-color: #34495e;
-    }
-
-    .nota-postit {
-        width: 140px;
-        min-height: 140px;
-        padding: 15px;
-        box-shadow: 5px 5px 10px rgba(0,0,0,0.15);
-        border-bottom-right-radius: 20px;
-        font-family: 'Comic Sans MS', cursive, sans-serif;
-        font-size: 14px;
-        color: #2c3e50;
-        word-wrap: break-word;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        animation: aparecerNota 0.3s ease-out;
-    }
-
-    @keyframes aparecerNota {
-        from { transform: scale(0); opacity: 0; }
-        to { transform: scale(1); opacity: 1; }
-    }
-</style>
-
-<div class="seccion-muro">
-    <h2 class="muro-titulo">📌 Muro de Mensajes de la Comunidad</h2>
-    <p style="color: #7f8c8d; margin-bottom: 20px; font-size: 14px;">¡Deja tu saludo, tu username de Roblox o un mensaje para el canal!</p>
-
-    <div class="muro-controles">
-        <input type="text" id="muro-texto" class="muro-input" placeholder="Escribe algo corto aquí... (máx. 60 caracteres)" maxlength="60">
-        
-        <div class="muro-opciones">
-            <div class="muro-colores">
-                <button class="color-btn activo" style="background-color: #fff68f;" onclick="cambiarColorNota('#fff68f', this)"></button>
-                <button class="color-btn" style="background-color: #ffb6c1;" onclick="cambiarColorNota('#ffb6c1', this)"></button>
-                <button class="color-btn" style="background-color: #98fb98;" onclick="cambiarColorNota('#98fb98', this)"></button>
-                <button class="color-btn" style="background-color: #87cefa;" onclick="cambiarColorNota('#87cefa', this)"></button>
-            </div>
-            <button class="muro-btn" onclick="agregarNota()">Publicar Nota</button>
-        </div>
-    </div>
-
-    <div class="muro-tablero" id="tablero-notas">
-        <!-- Las notas se irán pegando aquí adentro automáticamente -->
-    </div>
-</div>
-
-<script>
-    let colorSeleccionado = '#fff68f';
-
-    function cambiarColorNota(color, boton) {
-        colorSeleccionado = color;
-        document.querySelectorAll('.color-btn').forEach(btn => btn.classList.remove('activo'));
-        boton.classList.add('activo');
-    }
-
-    function agregarNota() {
-        const input = document.getElementById('muro-texto');
-        const texto = input.value.trim();
-        const tablero = document.getElementById('tablero-notas');
-
-        if (texto === '') {
-            alert('¡Escribe un mensaje primero!');
-            return;
-        }
-
-        const nuevaNota = document.createElement('div');
-        nuevaNota.className = 'nota-postit';
-        nuevaNota.style.backgroundColor = colorSeleccionado;
-        nuevaNota.innerText = texto;
-
-        // Genera una inclinación aleatoria para que parezca una nota real pegada de prisa
-        const rotacionAleatoria = Math.floor(Math.random() * 12) - 6; 
-        nuevaNota.style.transform = `rotate(${rotacionAleatoria}deg)`;
-
-        tablero.appendChild(nuevaNota);
-        input.value = '';
-    }
-</script>
-<style>
-    .barra-temas {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background: rgba(0,0,0,0.8);
-        padding: 10px 15px;
-        border-radius: 30px;
-        display: flex;
-        gap: 12px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        border: 1px solid rgba(255,255,255,0.1);
-        z-index: 9999;
-    }
-    .circulo-tema {
-        width: 25px;
-        height: 25px;
-        border-radius: 50%;
-        cursor: pointer;
-        border: 2px solid #fff;
-        transition: transform 0.2s;
-    }
-    .circulo-tema:hover { transform: scale(1.2); }
-</style>
-
-<div class="barra-temas">
-    <div class="circulo-tema" style="background: #ff007f;" onclick="cambiarTemaRGB('#ff007f', '#110008')"></div>
-    <div class="circulo-tema" style="background: #00b06f;" onclick="cambiarTemaRGB('#00b06f', '#001a10')"></div>
-    <div class="circulo-tema" style="background: #00f0ff;" onclick="cambiarTemaRGB('#00f0ff', '#001114')"></div>
-    <div class="circulo-tema" style="background: #111111;" onclick="cambiarTemaRGB('#ffffff', '#111111')"></div>
-</div>
-
-<script>
-    function cambiarTemaRGB(colorPrincipal, colorFondo) {
-        document.body.style.backgroundColor = colorFondo;
-        document.body.style.color = colorPrincipal;
-        
-        // Aplica el color principal a todos los títulos de tu web automáticamente
-        document.querySelectorAll('h1, h2, h3').forEach(titulo => {
-            titulo.style.color = colorPrincipal;
-        });
-    }
-</script>
-<style>
-    .fondo-liquido-moderno {
-        max-width: 600px;
-        height: 150px;
-        margin: 40px auto;
-        border-radius: 20px;
-        position: relative;
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    }
-    .capa-liquida {
-        position: absolute;
-        width: 200%;
-        height: 200%;
-        background: linear-gradient(45deg, #ff007f, #7000ff, #00f0ff, #ff007f);
-        background-size: 400% 400%;
-        animation: gradienteLiquido 8s ease infinite;
-        z-index: 1;
-    }
-    .texto-sobre-liquido {
-        position: relative;
-        z-index: 2;
-        color: white;
-        font-size: 24px;
-        font-weight: 900;
-        letter-spacing: 2px;
-        text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-        text-transform: uppercase;
-    }
-    @keyframes gradienteLiquido {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
-</style>
-
-<div class="fondo-liquido-moderno">
-    <div class="capa-liquida"></div>
-    <div class="texto-sobre-liquido">¡En roblox Universe, tu nos importas!!</div>
-</div>
-<style>
-    /* Botón flotante animado de engranaje */
-    .btn-ajustes-flotante {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: linear-gradient(135deg, #00b06f, #00e676);
-        border: none;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        font-size: 22px;
-        cursor: pointer;
-        box-shadow: 0 4px 20px rgba(0,176,111,0.5);
-        z-index: 10000;
-        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .btn-ajustes-flotante:hover { 
-        transform: rotate(90deg) scale(1.1); 
-    }
-    
-    /* Panel lateral futurista */
-    .panel-lateral {
-        position: fixed;
-        top: 0;
-        right: -320px;
-        width: 280px;
-        height: 100%;
-        background: rgba(15, 20, 28, 0.95);
-        backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px);
-        box-shadow: -10px 0 40px rgba(0,0,0,0.6);
-        transition: right 0.4s cubic-bezier(0.1, 0.9, 0.2, 1);
-        z-index: 9999;
-        padding: 30px 20px;
-        color: white;
-        font-family: sans-serif;
-        box-sizing: border-box;
-        border-left: 2px solid rgba(0, 176, 111, 0.3);
-    }
-    .panel-lateral.abierto { 
-        right: 0; 
-    }
-    
-    .panel-titulo {
-        color: #00b06f; 
-        margin-top: 40px; 
-        font-size: 22px;
-        letter-spacing: 1px;
-        text-shadow: 0 0 10px rgba(0,176,111,0.3);
-        margin-bottom: 5px;
-    }
-
-    /* Botones de acción real dentro del panel */
-    .btn-panel-accion {
-        width: 100%;
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        color: #fff;
-        padding: 14px;
-        margin-bottom: 12px;
-        border-radius: 12px;
-        font-weight: bold;
-        font-size: 14px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        transition: all 0.3s ease;
-        text-align: left;
-    }
-    .btn-panel-accion:hover {
-        background: linear-gradient(90deg, rgba(0,176,111,0.2), transparent);
-        border-color: #00b06f;
-        transform: translateX(-5px);
-        box-shadow: -5px 0 10px rgba(0,176,111,0.2);
-    }
-    .icono-btn {
-        font-size: 18px;
-    }
-</style>
-
-<button class="btn-ajustes-flotante" onclick="togglePanelLateral()">⚙️</button>
-
-<div class="panel-lateral" id="miPanelLateral">
-    <h3 class="panel-titulo">🕹️ CONTROL PANEL</h3>
-    <p style="font-size: 11px; color: #7f8c8d; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px;">Interactúa con la web</p>
-    
-    <button class="btn-panel-accion" onclick="ejecutarSaludo()">
-        <span class="icono-btn">👋</span> <span>Saludar Comunidad</span>
-    </button>
-    
-    <button class="btn-panel-accion" onclick="activarModoCyberpunk()">
-        <span class="icono-btn">🌌</span> <span>Modo Cyberpunk</span>
-    </button>
-    
-    <button class="btn-panel-accion" onclick="lanzarSuerte()">
-        <span class="icono-btn">🎲</span> <span>Reto de la Suerte</span>
-    </button>
-</div>
-
-<script>
-    // Función para abrir y cerrar el panel lateral deslizable
-    function togglePanelLateral() {
-        document.getElementById('miPanelLateral').classList.toggle('abierto');
-    }
-
-    // ACCIÓN 1: Al presionar "Saludar Comunidad"
-    function ejecutarSaludo() {
-        alert("quiubole, como andamos");
-    }
-
-    // ACCIÓN 2: Al presionar "Modo Cyber" cambia colores de fondo al instante
-    function activarModoCyberpunk() {
-        document.body.style.backgroundColor = "#070a0e";
-        document.body.style.color = "#00ff99";
-        
-        // Pinta todos los h1, h2 y h3 de color verde neón flotante
-        document.querySelectorAll('h1, h2, h3').forEach(titulo => {
-            titulo.style.color = "#00ffff";
-            titulo.style.textShadow = "0 0 8px rgba(0,255,153,0.5)";
-        });
-        alert("👾 ¡Modo Cyberpunk Activado!");
-    }
-
-    // ACCIÓN 3: Al presionar "Reto de la Suerte" lanza un desafío aleatorio en pantalla
-    function lanzarSuerte() {
-        const retos = [
-            "🏆 Desafío: Gana una partida de Roblox usando solo una mano hoy.",
-            "🎨 Desafío: Cambia tu avatar por completo a color cafe caca.",
-            "👥 Desafío: Regala 1 skin case en rivals."
-        ];
-        const retoFinal = retos[Math.floor(Math.random() * retos.length)];
-        alert(retoFinal);
-    }
-</script>
-<style>
-    /* Cambia el cursor por un diseño de flecha/mira futurista de alta tecnología */
-    html, body, a, button, input {
-        cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path d="M4 4l12 24 4-10 10-4z" fill="%2300f0ff" stroke="%230055ff" stroke-width="2" stroke-linejoin="round"/><circle cx="4" cy="4" r="2" fill="%23ffffff"/></svg>') 0 0, auto !important;
-    }
-</style>
-
-<video id="videoMetroReal" src="tururu.mp4" preload="auto" style="display:none;"></video>
-
-<script>
-    const videoMetro = document.getElementById('videoMetroReal');
-
-    function reproducirAudioMetro() {
-        // Regresa el video al inicio para que suene con cada clic consecutivo
-        videoMetro.currentTime = 0; 
-        
-        // Ejecuta el video oculto para reproducir el audio exacto de tu archivo
-        videoMetro.play().catch(error => {
-            console.log("El navegador requiere un clic previo en la página para activar el sonido.");
-        });
-    }
-
-    // Activa el sonido real de tu video con cada clic en la pantalla
-    window.addEventListener('click', () => {
-        reproducirAudioMetro();
-    });
-</script>
-<div id="pantalla-carga" style="
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #0b0f19;
-    z-index: 999999;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-family: sans-serif;
-    transition: opacity 0.5s ease, visibility 0.5s ease;
-">
-    <div style="text-align: center; width: 280px;">
-        
-        <div id="texto-carga" style="
-            color: #00f0ff;
-            font-size: 16px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 15px;
-            text-shadow: 0 0 10px #00f0ff;
-            animation: parpadeoDigital 1s infinite alternate;
-        ">
-            Cargando Sistema...
-        </div>
-
-        <div style="
-            width: 100%;
-            height: 6px;
-            background-color: #121824;
-            border-radius: 10px;
-            overflow: hidden;
-            border: 1px solid rgba(0, 240, 255, 0.2);
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.1);
-        ">
-            <div id="progreso-carga" style="
-                width: 0%;
-                height: 100%;
-                background: linear-gradient(90deg, #7000ff, #ff007f);
-                box-shadow: 0 0 12px #ff007f;
-                border-radius: 10px;
-                transition: width 0.05s linear;
-            "></div>
-        </div>
-
-        <div id="porcentaje-carga" style="
-            color: #ffeaa7;
-            font-size: 13px;
-            margin-top: 10px;
-            font-weight: bold;
-            letter-spacing: 1px;
-        ">0%</div>
-
-    </div>
-</div>
-
-<style>
-    @keyframes parpadeoDigital {
-        0% { opacity: 0.4; text-shadow: 0 0 4px #00f0ff; }
-        100% { opacity: 1; text-shadow: 0 0 12px #00f0ff, 0 0 20px #ff007f; }
-    }
-</style>
-
-<video id="audioBienvenidaMetro" src="tururu.mp4" preload="auto" style="display:none;"></video>
-
-<script>
-    window.addEventListener('DOMContentLoaded', () => {
-        const barra = document.getElementById('progreso-carga');
-        const textoPorcentaje = document.getElementById('porcentaje-carga');
-        const textoEstado = document.getElementById('texto-carga');
-        const pantalla = document.getElementById('pantalla-carga');
-        const audioMetro = document.getElementById('audioBienvenidaMetro');
-
-        let progreso = 0;
-
-        // Simula la velocidad de carga del sistema de forma fluida
-        const intervaloCarga = setInterval(() => {
-            progreso += 1;
-            
-            // Actualiza visualmente la barra y los números en tiempo real
-            barra.style.width = progreso + '%';
-            textoPorcentaje.innerText = progreso + '%';
-
-            // Pequeño cambio visual justo antes de terminar
-            if (progreso === 90) {
-                textoEstado.innerText = "Acceso Concedido";
-                textoEstado.style.color = "#00ffaa";
-                textoEstado.style.textShadow = "0 0 10px #00ffaa";
-            }
-
-            // Cuando llega al 100%, termina la carga
-            if (progreso >= 100) {
-                clearInterval(intervaloCarga);
-                
-                // 1. Ejecuta el sonido real de tu archivo tururu.mp4
-                audioMetro.currentTime = 0;
-                audioMetro.play().catch(err => {
-                    console.log("Nota: El navegador requiere que interactúes con la página antes de reproducir audio automáticamente.");
-                });
-
-                // 2. Desvanece la pantalla de carga con una transición limpia hacia tu web original
-                setTimeout(() => {
-                    pantalla.style.opacity = '0';
-                    pantalla.style.visibility = 'hidden';
-                }, 400); 
-            }
-        }, 30); // Controla la velocidad aquí (30ms por cada 1%)
-    });
-</script>
-<style>
-    .tarjeta-cyber-glow {
-        position: relative;
-        background: #0f141d;
-        border-radius: 16px;
-        padding: 25px;
-        max-width: 300px;
-        margin: 20px auto;
-        font-family: sans-serif;
-        color: white;
-        overflow: hidden;
-        border: 1px solid rgba(255,255,255,0.05);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    }
-    
-    /* El truco del borde neón dinámico usando un pseudoelemento trasero */
-    .tarjeta-cyber-glow::before {
-        content: '';
-        position: absolute;
-        top: -50%; left: -50%;
-        width: 200%; height: 200%;
-        background: conic-gradient(transparent, transparent, transparent, #00f0ff, #ff007f);
-        animation: rotarBordeGlow 4s linear infinite;
-        z-index: 1;
-        opacity: 0; /* Apagado por defecto */
-        transition: opacity 0.3s;
-    }
-    
-    /* Enciende el borde brillante solo al pasar el mouse encima */
-    .tarjeta-cyber-glow:hover::before { opacity: 1; }
-
-    /* Capa interna negra que tapa el centro para que solo se vea el borde */
-    .tarjeta-contenido-interno {
-        position: relative;
-        background: #0f141d;
-        border-radius: 14px;
-        padding: 10px;
-        z-index: 2;
-    }
-
-    @keyframes rotarBordeGlow {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
-</style>
-
-<div class="tarjeta-cyber-glow">
-    <div class="tarjeta-contenido-interno">
-        <span style="color: #ff007f; font-size: 11px; font-weight: bold; letter-spacing: 2px; text-transform: uppercase;">Actualización</span>
-        <h4 style="margin: 10px 0; font-size: 18px;">Servidores Oficiales</h4>
-        <p style="color: #8a99ad; font-size: 13px; line-height: 1.5; margin-bottom: 0;">Se implemento sistema de muro de mensajes (bug), se implemento modo cyber, retos y saludos con el boton de configuracion arriba a la derecha :3, tambien se añadio pantalla de carga.</p>
-    </div>
-</div>
-<div id="contenedor-trivia-reparado">
-    <div class="trivia-box" style="background: #222; border: 2px solid #ff5e00; border-radius: 12px; padding: 20px; max-width: 450px; margin: 20px auto; color: white;">
-        <h3 style="color: #ff5e00; margin-top: 0;">🚇 Trivia: ¿Qué tan buen Conductor eres?</h3>
-        <div id="juego-trivia">
-            <div id="pregunta-texto" style="font-size: 1.1rem; font-weight: bold; margin: 15px 0; color: #ffeaa7;"></div>
-            <div id="opciones-contenedor" style="display: flex; flex-direction: column; gap: 10px;"></div>
-        </div>
-        <div id="resultado-trivia" style="display: none;">
-            <h4 id="rango-titulo"></h4>
-            <p id="rango-desc"></p>
-            <button onclick="reiniciarTrivia()" style="background: #ff5e00; color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer;">Intentar de nuevo</button>
-        </div>
-    </div>
-</div>
-
-<script>
-(function() {
-    const preguntas = [
-        { p: "1. Si el semáforo cambia a ROJO, ¿qué haces?", o: ["Acelerar", "Alto total", "Tocar claxon"], c: 1 },
-        { p: "2. ¿Estación de correspondencia importante en L2?", o: ["Zócalo", "Bellas Artes", "Pino Suárez"], c: 2 },
-        { p: "3. ¿Herramienta para cambiar de vía?", o: ["Palanca", "Comandos", "Btools"], c: 0 },
-        { p: "4. ¿Terminal sur de la Línea 2?", o: ["Cuatro Caminos", "Tasqueña", "Gral Anaya"], c: 1 },
-        { p: "5. ¿Qué hacer antes de abrir puertas?", o: ["Acelerar", "Verificar alineación", "Apagar motor"], c: 1 }
-    ];
-
-    let indice = 0;
-    let aciertos = 0;
-
-    function render() {
-        const pCont = document.getElementById('pregunta-texto');
-        const oCont = document.getElementById('opciones-contenedor');
-        
-        if (indice < preguntas.length) {
-            pCont.innerText = preguntas[indice].p;
-            oCont.innerHTML = '';
-            preguntas[indice].o.forEach((txt, i) => {
-                const btn = document.createElement('button');
-                btn.innerText = txt;
-                btn.style = "background: #333; color: white; border: 1px solid #555; padding: 10px; cursor: pointer; border-radius: 5px;";
-                btn.onclick = () => {
-                    if (i === preguntas[indice].c) aciertos++;
-                    indice++;
-                    render();
-                };
-                oCont.appendChild(btn);
-            });
-        } else {
-            document.getElementById('juego-trivia').style.display = 'none';
-            document.getElementById('resultado-trivia').style.display = 'block';
-            document.getElementById('rango-titulo').innerText = "¡Trivia completada!";
-            document.getElementById('rango-desc').innerText = "Aciertos: " + aciertos + " de 5";
-        }
-    }
-
-    window.reiniciarTrivia = function() {
-        indice = 0; aciertos = 0;
-        document.getElementById('juego-trivia').style.display = 'block';
-        document.getElementById('resultado-trivia').style.display = 'none';
-        render();
-    };
-
-    render();
-})();
-</script>
-<div id="generador-container" style="font-family: sans-serif; color: white; max-width: 400px; margin: 20px auto; background: #1a1a1a; padding: 25px; border-radius: 15px; border: 2px solid #e67e22; text-align: center;">
-    
-    <h3 style="color: #e67e22; margin-top: 0;">🎫 Taquilla: Roblox Universe</h3>
-    <input type="text" id="userid-input" placeholder="Ingresa ID de usuario" style="padding: 10px; width: 85%; margin-bottom: 10px; background: #333; color: white; border: none;">
-    <button onclick="generarBoletoSeguro()" style="padding: 10px 20px; background: #e67e22; border: none; color: white; cursor: pointer; font-weight: bold; width: 90%;">Hacer Boleto</button>
-
-    <div id="pantalla-avatar-simple" style="display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.95); z-index: 9999; flex-direction: column; align-items: center; justify-content: center;">
-        <h2 id="status-texto" style="color: #e67e22;">Generando boleto...</h2>
-        <img id="img-avatar-simple" src="" style="width: 200px; border-radius: 50%; border: 5px solid #e67e22; margin: 20px;">
-        <h2 id="titulo-boleto" style="color: white; margin: 0;">¡Boleto A Roblox Universe!</h2>
-    </div>
-</div>
-
-<script>
-function generarBoletoSeguro() {
-    const userId = document.getElementById('userid-input').value;
-    if (!userId) return alert("Por favor, ingresa un ID de usuario.");
-
-    const pantalla = document.getElementById('pantalla-avatar-simple');
-    const img = document.getElementById('img-avatar-simple');
-    const status = document.getElementById('status-texto');
-
-    // Mostramos la pantalla inmediatamente
-    pantalla.style.display = 'flex';
-    status.innerText = "Cargando avatar...";
-    
-    // Cargamos la imagen directamente (esto no da error de seguridad)
-    img.src = `https://www.roblox.com/headshot-thumbnail/image?userId=${userId}&width=420&height=420&format=png`;
-
-    // Cerramos automáticamente después de 5 segundos
-    setTimeout(() => {
-        pantalla.style.display = 'none';
-        document.getElementById('userid-input').value = '';
-    }, 5000);
-}
-</script>
-
-
